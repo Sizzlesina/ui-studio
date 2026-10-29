@@ -1,7 +1,7 @@
 ---
 name: ui-studio
 license: MIT
-description: Guide a project-specific UI/UX design or redesign from a short user interview through current references, visual identity, approved previews, complete page design, implementation, technical documentation, and a final report. Use for requests to design, redesign, modernize, complete, or polish websites, storefronts, landing pages, apps, or dashboards. Ask about the project and style first; explain styles and generate requested visual examples. Present any newly recommended design system in HTML for approval before applying it.
+description: Guide project-specific UI/UX design, complete-page work, or redesign of existing websites, storefronts, apps, and dashboards. First understand the product and style, then research relevant sources and competitors, audit existing experiences when redesigning, shape a distinctive visual system, complete all in-scope pages and components, and review the result before delivery. Explain styles and generate requested concept images. Present any newly recommended design system in HTML for approval before applying it.
 ---
 
 # UI Studio
@@ -87,7 +87,11 @@ While required images or a media decision are pending, continue independent anal
 
 Read [references/design-sources.md](references/design-sources.md) for reusable guidance and source starting points.
 
-- Browse a small set of relevant, current references, normally two to four actual product pages, official design-system sources, or credible design examples. User-provided references take priority.
+- For a typical website or storefront, inspect two to four credible UX/design sources and two to four real competitors in the target market. Use fewer only when the niche has few relevant examples, and explain the limitation. Prioritize references that answer a concrete unresolved design question; do not turn research into an inspiration dump.
+- For trend requests, include at least one recent, dated source and inspect its expertise or method. Treat usability evidence and aesthetic trend signals separately. Do not call a style current based only on memory, an undated gallery, or a local pattern database.
+- Identify direct competitors for the audience and market; inspect their actual pages and mobile presentation when available. Search snippets and generic inspiration collections are not competitor analysis. If a site is blocked or partially readable, report that limitation and choose another useful source where possible.
+- Compare relevant patterns: discovery and navigation, primary actions, information architecture, search/filtering, product/content presentation, trust cues, imagery, responsive behavior, and key states. State which patterns informed the design and which were avoided. A competitor using a pattern does not prove it works; never copy its branding, wording, assets, or distinctive page composition.
+- Record each source's direct URL, access date, observable evidence, and design implication. Separate facts from interpretation and cite sources near claims in the analysis. Before styling, summarize how the findings changed or validated the direction.
 - Verify what each source actually shows. Record its URL, access date, relevant observation, and how that observation informs this project. Separate observation from your interpretation.
 - Use trends selectively. Do not claim something is a current trend merely because it appears in training knowledge, a local database, or an undated gallery.
 - If browsing is unavailable or prohibited, disclose that current trends could not be verified and work from the user's references and established principles.
@@ -108,9 +112,26 @@ Create a section map with each section's purpose, key content, action or next st
 
 When the user asks for the structure, skeleton, or wireframe, deliver an actual exportable artifact. Default to a readable `page-structure.md` plus a simple `wireframe.html` showing the requested scope, section order, hierarchy, navigation, main actions, and mobile layout. Keep it independent of final colors and imagery. If the request is only for a skeleton, stop at that deliverable. If it is a preview for approval, wait before applying the visual design. An additional structure export does not by itself create a new approval gate.
 
+When the user asks for a complete product, website, or storefront, do not mistake a polished hero or a clickable mockup for a complete experience. Confirm the intended scope, then provide every in-scope page or fully complete page requested, with a coherent page map, usable navigation, meaningful content, complete section structure, relevant product/content assortment, finished footer, and the interaction states needed for the primary journeys. Do not stop at a skeleton or one screen if the agreed scope is the whole product. Do not silently expand a one-page request into an application.
+
+Avoid visible scaffold cues in a polished concept: “sample/demo/coming soon” labels, TODOs, filler copy, empty section shells, inactive controls, or repeated caveats. If actual inventory, contact details, policies, compatibility, testimonials, or business metrics are unknown, use a clearly reasoned proposed content model without making those claims appear verified. Explain assumptions once in the accompanying project notes; never fabricate guarantees or operational details to make a screen feel complete.
+
 For product apps and dashboards, prioritize useful information, common tasks, navigation, and states instead of importing a marketing-page structure. For storefronts, distinguish real product images from contextual photography; never use a car photograph as if it were a photo of a phone holder. Compatibility controls must not claim verified compatibility without supporting data.
 
 If detailed page analysis was requested, cover every page in the agreed scope, including its goal, entry/exit points, sections, interactions, states, dependencies, and responsive behavior. Otherwise include a concise page inventory and primary journeys in the overall analysis.
+
+## 5A. Redesign an existing project
+
+Use this route whenever the user asks to redesign, refresh, modernize, improve, or complete an existing interface. Audit what exists before changing it; do not approach a redesign as an unrelated blank-page concept.
+
+1. **Set the redesign boundary.** Establish whether the user wants a focused page/flow improvement, a visual refresh that preserves the identity, or a broader experience redesign. Use the current request and prior answers to infer it where clear; ask only if the choice would materially change scope.
+2. **Understand the current experience.** Review the requested pages and their real content, visual hierarchy, navigation, available brand assets, components, responsive presentation, and key states. Identify the main user journeys and friction points. Separate observable problems from taste preferences and assumptions.
+3. **Create a concise before/change map.** For each in-scope page or component, state what to keep, improve, replace, add, or remove, and why. Preserve valuable identity, content, accessibility, and behavior. Do not delete a flow merely because it is visually inconvenient, and do not redesign unrelated areas.
+4. **Close completeness gaps inside scope.** Identify missing sections, disconnected navigation, incomplete component states, unhelpful content, dead actions, category gaps, and mobile problems. Add the sections and states necessary to complete the user's requested journey; do not add filler to increase page length.
+5. **Apply one coherent direction across the scope.** Preserve or intentionally evolve the existing design system. When multiple pages are in scope, keep shared navigation, type, color roles, spacing, imagery, component states, and interaction language coherent across all of them. Do not make the first screen polished while leaving the rest visually or structurally unfinished.
+6. **Compare the result to the baseline.** Review every in-scope page and the primary user journeys after redesign. Confirm that the new hierarchy solves the identified problems and that essential actions, content, and states remain available. Report what was retained, changed, newly completed, and any remaining limitation.
+
+Do not claim that a redesign is complete based on a hero or screenshot alone. Completion means the full agreed scope has been redesigned, all visible components are considered, and the resulting experience supports the intended tasks at the relevant screen sizes.
 
 ## 6. Define the identity and design system
 
@@ -128,6 +149,18 @@ Translate the brief into an explicit, coherent design specification:
 Choose layout expressiveness, motion intensity, and information density from the brief. These can use the three dials from design-taste-frontend, but do not impose its numerical defaults or scope restrictions on every project.
 
 Distinguish an aesthetic such as glassmorphism from an established design system such as Material or Carbon. Do not claim that a custom preview is an official implementation. Choose an existing system only when it fits the project; do not silently migrate its framework or mix competing systems.
+
+### Make the art direction recognizable
+
+Do not mistake a competent layout, fashionable palette, or impressive hero image for a strong direction. Define at least two product-specific visual or interaction anchors beyond the logo and colors—for example a distinctive editorial composition, useful selection interaction, subject-based graphic motif, photography treatment, or type/layout relationship. Give each page section a distinct purpose and vary the pace and density; do not repeat the same photo, card grid, split panel, eyebrow label, or promo banner without a content reason. Review the first viewport at normal size and the full page as a reduced overview: the first should quickly explain the product and next action, while the overview should have clear rhythm and memorable moments. If the work reads as a generic “hero + accent color + product cards” shell, strengthen the concept before adding polish.
+
+### Prevent accidental minimalism and underfilled pages
+
+Minimalism is a deliberate style choice, never the default shortcut. Derive visual and information density from the product, audience, scope, and selected style. A request for a complete store, homepage, or product experience usually needs enough real, purposeful content to support discovery, evaluation, trust, and action; do not make it feel like a sparse concept board or demo merely to keep the layout clean.
+
+Before implementation, state the intended density and explain it through the content model. For a storefront, consider the actual buying journey: category discovery, a useful assortment, product comparison, fitment or selection help when relevant, purchase actions, decision-support content, and service/policy information when known. Include only sections that serve this project; when facts are unknown, use clearly proposed content without inventing business claims. For other products, fill the scope with the tasks, information, and states users actually need.
+
+At full-page overview size, challenge these warning signs: large unused areas without a compositional reason; many low-contrast surfaces that merge together; oversized gaps between small amounts of content; thin outlines and delicate icons doing all the visual work; too few meaningful sections or items for the agreed scope; identical card grids repeated to simulate completeness; or a page that still reads as a wireframe/demo. If present, improve the content hierarchy, section rhythm, useful assortment, color contrast, image scale, and layout variation. Do not solve emptiness with arbitrary decoration, invented claims, or filler text. Respect a user-selected minimalist direction, but make that minimalism intentional and complete rather than empty.
 
 ## 7. Deliver requested previews and honor approval
 
@@ -159,6 +192,8 @@ Make previews useful and easy to review:
 
 Implement the agreed interface and complete the agreed main-page sections. Use the project's actual environment, established behavior, content, and constraints. Do not deliver a report or mockup as a substitute when implementation was requested; a preview-only request ends with the preview.
 
+Complete the visible components, not only their page-level arrangement. For every component used in the agreed scope, define its content, hierarchy, responsive layout, visual variants, and relevant interaction states. Check shared components such as navigation, search, filters, product/content cards, forms, tabs, accordions, dialogs, notices, and footer when present. A component is unfinished if it has a visible control with no useful action, a missing state needed by its flow, placeholder content, broken mobile layout, or styling that conflicts with the approved system. Reuse components where that improves consistency, but vary composition when sections have different jobs.
+
 Use these quality principles throughout:
 
 - Give the main action and content a clear hierarchy. Use grouping and whitespace purposefully.
@@ -179,6 +214,8 @@ Before implementation, challenge the proposed composition: could changing only t
 Review once at the end using the lowest-cost sufficient checks allowed by the user. Look for repeated section patterns without a content reason, uniform card containers around everything, decorative badges/eyebrows, stock imagery unrelated to the content, arbitrary effects, vague copy, and controls with no useful behavior. These are contextual warning signs, not universal bans on a user's chosen style. Preserve familiar patterns when they help the task.
 
 Resolve observable issues in hierarchy, spacing, legibility, media relevance, consistency, mobile layout, and interaction completeness. If rendered review is permitted, inspect the whole requested scope and key interactions. If it is not, perform a static review and state its limits. Do not manufacture a design score or guarantee that subjective taste has been proven. Report concrete issues corrected and any remaining gaps. Never claim a visual/browser review, successful test, or performance measurement that was not performed.
+
+Use a concise finish gate on the complete result: mark product specificity, task hierarchy, content completeness/density, composition rhythm, component completeness, visual craft, and responsive quality as pass or needs revision. Specifically ask whether the full page feels underfilled or like a demo at overview size, and whether all visible components and their key states are complete. Fix high-impact failures before delivery. Treat this as a qualitative review, not a numeric score. When the user asks for critique, state the strongest evidence-backed weaknesses before proposing or applying corrections.
 
 ## 9. Finish the documents and report
 

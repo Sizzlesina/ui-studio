@@ -1,21 +1,23 @@
 # UI Studio
 
-A reusable agent skill for designing complete, project-specific interfaces through a short conversation, relevant references, visual direction, optional previews, and implementation.
+A reusable agent skill for understanding, designing, and completing project-specific interfaces. UI Studio adapts to the product and its audience, researches relevant references, then redesigns or builds the agreed scope and documents the result.
 
 [راهنمای فارسی](README.fa.md)
 
+A standalone Persian master prompt is available in [PROMPT.fa.md](PROMPT.fa.md).
+
 ## Install
 
-After this repository is published on GitHub, replace `YOUR_GITHUB_USERNAME` with its owner:
+Install the published skill from this repository:
 
 ```bash
-npx skills add YOUR_GITHUB_USERNAME/ui-studio --skill ui-studio
+npx skills add Sizzlesina/ui-studio --skill ui-studio
 ```
 
 To install across projects:
 
 ```bash
-npx skills add YOUR_GITHUB_USERNAME/ui-studio --skill ui-studio -g
+npx skills add Sizzlesina/ui-studio --skill ui-studio -g
 ```
 
 The CLI lets you choose supported agents. Node.js and npm are needed to run `npx`; see the [official CLI documentation](https://github.com/vercel-labs/skills) for current requirements and options. UI Studio itself has no package dependencies or install scripts.
@@ -32,6 +34,18 @@ Ask me about the project and design style first. I want to review
 the page structure and an HTML design-system preview before implementation.
 ```
 
+Redesign an existing product:
+
+```text
+Use ui-studio to redesign the current product experience. Audit the in-scope
+pages and main user journeys first; show the evidence-backed weaknesses and
+what you recommend keeping, improving, replacing, or adding. Preserve working
+flows and useful brand identity. Research relevant competitors and credible
+UX sources, complete every page and component in scope, and review the full
+result on desktop and mobile. Do not leave demo labels, placeholders, or dead
+controls in a finished concept.
+```
+
 ```text
 Use ui-studio for a clinic appointment website. I have an existing logo
 and font. Help me choose colors and complete the homepage. Ask before
@@ -46,20 +60,25 @@ and HTML wireframe first.
 
 ## What it does
 
-- Asks about the project, audience, visual style, fonts, colors, and identity.
-- Explains styles and generates concept images when requested and supported.
-- Uses a small set of relevant current references when browsing is available.
-- Plans a complete page around user needs, with purposeful sections and working interactions.
-- Asks before selecting a media route: supplied, sourced, generated, external, or an alternative element.
-- Can deliver an exportable page outline and responsive HTML wireframe.
-- Presents a newly recommended design system in HTML for approval before applying it, unless the user explicitly waives that step.
-- Reviews common generic-design patterns, accessibility, responsive behavior, and interaction completeness.
-- Produces overall analysis, design specifications, technical notes, and a concise final report. Detailed page analysis is optional.
+UI Studio follows the project from discovery to handoff:
+
+1. **Understand the project.** Establish the product, audience, primary tasks, scope, language, visual preferences, brand assets, and media choices. Reuse answers already given instead of repeating questions.
+2. **Research with a purpose.** Review relevant UX/design sources and actual competitors when browsing is available. Turn observations into design decisions; do not copy another product's identity or claim that an undated style is a current trend.
+3. **Set the direction.** Define visual personality, color roles, typography, layout density, imagery, navigation, interaction language, responsive behavior, accessibility, and motion around the product.
+4. **Complete the agreed scope.** Build purposeful sections and complete visible components, including relevant interaction states and mobile layouts. For a redesign, audit the current experience and preserve essential flows and useful identity.
+5. **Review and document.** Inspect the full result when permitted, fix high-impact gaps, and report the work, assumptions, verification, and limits.
+
+### Visual quality standard
+
+Minimalism is not the default. Match visual and content density to the product, audience, and requested style. A complete storefront or product page should feel finished and useful—not like an empty demo or concept board. Never add filler, arbitrary decoration, or fabricated business claims just to make a page look fuller. Check whole-page rhythm, contrast, meaningful content coverage, component completeness, and responsive behavior before delivery.
+
+When a new design system is recommended, UI Studio provides an HTML sample for approval before applying it unless the user explicitly waives that step. A requested wireframe or page preview has its own approval boundary; see `SKILL.md` for the full rules.
 
 ## What is included
 
 ```text
 SKILL.md
+PROMPT.fa.md
 references/
   style-conversation.md
   design-sources.md
@@ -77,10 +96,9 @@ Design quality remains a matter of fit and judgment. Static checks cannot establ
 
 ## Publish your copy
 
-1. Create a public GitHub repository named `ui-studio`.
-2. Upload this folder's **contents** to the repository root, so `SKILL.md` is at the root.
-3. Replace `YOUR_GITHUB_USERNAME` in both README files with the repository owner.
-4. Share the install command above.
+1. Keep `SKILL.md` at the root of the `Sizzlesina/ui-studio` repository and include the `references/` folder.
+2. Push the updated files to GitHub.
+3. Share the install command above. No npm package publication is required.
 
 No npm package publication is required. The [Skills FAQ](https://www.skills.sh/docs/faq) explains discovery and leaderboard listing through CLI installation telemetry. This local folder has not been published by creating these files.
 
