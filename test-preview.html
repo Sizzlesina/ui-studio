@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veloce Audio — فروشگاه تخصصی گجت‌های صوتی و استودیویی</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Vazirmatn', 'system-ui', 'sans-serif'],
+            mono: ['Inter', 'monospace']
+          },
+          colors: {
+            bgDark: '#0a0a0c',
+            surface: '#121216',
+            surfaceHighlight: '#18181f',
+            amberAccent: '#f59e0b',
+            amberGlow: 'rgba(245, 158, 11, 0.15)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0a0a0c;
+      color: #f4f4f5;
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    .ambient-mesh {
+      position: fixed;
+      top: 0;
+      right: 20%;
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%);
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .card-border {
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      border-color: rgba(245, 158, 11, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.7), 0 0 25px -5px rgba(245, 158, 11, 0.12);
+    }
+    #toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    /* Animated Soundwave EQ */
+    @keyframes eqBar {
+      0%, 100% { height: 20%; }
+      50% { height: 95%; }
+    }
+    .eq-active .eq-bar {
+      animation: eqBar 0.8s ease-in-out infinite alternate;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#0a0a0c] text-zinc-100 selection:bg-amber-500/30 selection:text-amber-200 relative overflow-x-hidden">
+
+  <!-- Ambient Light Mesh -->
+  <div class="ambient-mesh"></div>
+
+  <!-- Announcement Bar -->
+  <div class="bg-gradient-to-r from-amber-500/10 via-amber-400/15 to-violet-500/10 border-b border-amber-500/20 py-2 px-4 text-center text-xs text-amber-200/90 relative z-50">
+    <span class="inline-flex items-center gap-2">
+      <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+      ارسال اکسپرس رایگان برای خریدهای بالای ۳ میلیون تومان + ۱۸ ماه گارانتی طلایی تعویض
+    </span>
+  </div>
+
+  <!-- Main Navbar -->
+  <header class="sticky top-0 z-40 backdrop-blur-2xl bg-[#0a0a0c]/85 border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-6 h-18 py-3.5 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-500 to-orange-600 flex items-center justify-center shadow-lg shadow-amber-500/20 text-zinc-950 font-black text-lg">
+          V
+        </div>
+        <div>
+          <span class="text-lg font-black tracking-tight text-white block leading-none">ولوچه آدیو</span>
+          <span class="text-[10px] text-amber-400/80 font-mono tracking-widest uppercase">Veloce Sound Lab</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links (Clean, High-Hierarchy & No-Wrap) -->
+      <nav class="hidden md:flex items-center gap-2 text-sm font-medium text-zinc-400">
+        <a href="#hero" class="px-3.5 py-1.5 rounded-lg text-white bg-white/10 whitespace-nowrap transition-colors">فروشگاه</a>
+        <a href="#categories" class="px-3.5 py-1.5 rounded-lg hover:text-zinc-200 hover:bg-white/[0.04] whitespace-nowrap transition-colors">کالکشن محصولات</a>
+        <a href="#sound-demo" class="px-3.5 py-1.5 rounded-lg hover:text-zinc-200 hover:bg-white/[0.04] whitespace-nowrap transition-colors">تست صدا</a>
+        <a href="#comparison" class="px-3.5 py-1.5 rounded-lg hover:text-zinc-200 hover:bg-white/[0.04] whitespace-nowrap transition-colors">مقایسه فنی</a>
+        <a href="#faq" class="px-3.5 py-1.5 rounded-lg hover:text-zinc-200 hover:bg-white/[0.04] whitespace-nowrap transition-colors">گارانتی و سوالات</a>
+      </nav>
+
+      <!-- Search & Cart Actions -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/[0.03] border border-white/10 text-xs text-zinc-400 w-52">
+          <svg class="w-4 h-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input type="text" placeholder="جستجوی مدل یا برند..." class="bg-transparent border-none outline-none text-zinc-200 text-xs w-full placeholder:text-zinc-500">
+        </div>
+
+        <!-- Cart Button with Live Badge -->
+        <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-xl bg-white/[0.03] border border-white/10 hover:border-amber-400/30 text-zinc-200 active:scale-95 transition-all">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+          </svg>
+          <span id="cartCount" class="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-amber-500 text-zinc-950 font-mono text-[11px] font-black flex items-center justify-center shadow-md">
+            ۲
+          </span>
+        </button>
+
+        <button onclick="showToast('ورود به پنل کاربری')" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-zinc-950 text-xs font-bold hover:bg-zinc-200 active:scale-95 transition-all">
+          حساب کاربری
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. HERO SECTION: Split Flagship Showcase -->
+  <section id="hero" class="max-w-7xl mx-auto px-6 pt-12 pb-16 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <!-- Right Column: Content -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-semibold">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          پرچمدار جدید ۲۰۲۶ • نسل چهارم اکوستیک
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.25]">
+          صدایی که فقط نمی‌شنوید؛ <br>
+          <span class="bg-gradient-to-l from-amber-400 via-amber-200 to-white bg-clip-text text-transparent">
+            آن را لمس می‌کنید.
+          </span>
+        </h1>
+
+        <p class="text-zinc-400 text-sm sm:text-base max-w-xl leading-relaxed">
+          هدفون مانیتورینگ استودیویی <strong>Veloce Pro Master X</strong> با درایورهای تیتانیومی ۵۰ میلی‌متری، ایزولاسیون غیرفعال منفی ۳۲ دسی‌بل و پشتیبانی از رزولوشن صوتی بدون افت (Hi-Res Lossless).
+        </p>
+
+        <!-- Pricing & Primary CTA -->
+        <div class="pt-2 flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="flex items-baseline gap-2">
+            <span class="text-3xl font-black font-mono text-white">۱۴,۸۰۰,۰۰۰</span>
+            <span class="text-xs text-zinc-400 font-medium">تومان</span>
+            <span class="text-xs text-zinc-500 line-through font-mono mr-2">۱۶,۵۰۰,۰۰۰</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button onclick="addToCart('Veloce Pro Master X', '۱۴,۸۰۰,۰۰۰')" class="px-6 py-3 rounded-xl bg-gradient-to-l from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-zinc-950 font-bold text-sm shadow-xl shadow-amber-500/20 active:scale-95 transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              افزودن مستقیم به سبد خرید
+            </button>
+            <a href="#sound-demo" class="px-4 py-3 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 text-zinc-300 text-xs font-medium transition-all">
+              تست زنده فرکانس صدا
+            </a>
+          </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="pt-6 border-t border-white/[0.06] grid grid-cols-3 gap-4 text-xs text-zinc-400">
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span>تضمین اصالت اورجینال</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span>۷ روز مهلت تست فنی</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-amber-400">✓</span>
+            <span>تحویل ۲ ساعته در تهران</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Left Column: Hero Interactive Product Showcase -->
+      <div class="lg:col-span-5 relative">
+        <div class="relative rounded-3xl bg-gradient-to-b from-[#16161d] to-[#0f0f14] card-border p-8 flex flex-col items-center justify-center text-center overflow-hidden group">
+          
+          <div id="productGlow" class="absolute w-64 h-64 rounded-full bg-amber-500/10 blur-3xl pointer-events-none transition-all duration-500"></div>
+
+          <div class="self-start px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono font-medium flex items-center gap-1.5 mb-4">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            فقط ۴ عدد در انبار باقیست
+          </div>
+
+          <div class="w-64 h-64 relative my-4 flex items-center justify-center">
+            <svg id="headphoneSvg" class="w-56 h-56 transition-transform duration-500 group-hover:scale-105" viewBox="0 0 200 200" fill="none">
+              <path d="M 40,110 A 60,60 0 0,1 160,110" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+              <path d="M 50,105 A 50,50 0 0,1 150,105" stroke="#27272a" stroke-width="6" stroke-linecap="round"/>
+              <rect x="25" y="100" width="30" height="50" rx="15" fill="#18181b" stroke="#f59e0b" stroke-width="3"/>
+              <rect x="145" y="100" width="30" height="50" rx="15" fill="#18181b" stroke="#f59e0b" stroke-width="3"/>
+              <circle cx="40" cy="125" r="7" fill="#f59e0b"/>
+              <circle cx="160" cy="125" r="7" fill="#f59e0b"/>
+              <circle cx="100" cy="115" r="16" fill="rgba(245, 158, 11, 0.15)"/>
+              <path d="M 85,115 Q 100,95 115,115" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- Color Switcher -->
+          <div class="mt-4 flex items-center gap-3 bg-zinc-900/80 px-4 py-2 rounded-full border border-white/10">
+            <span class="text-xs text-zinc-400">انتخاب رنگ:</span>
+            <button onclick="changeColor('#f59e0b', 'طلایی کهربایی')" class="w-5 h-5 rounded-full bg-amber-500 ring-2 ring-white ring-offset-2 ring-offset-zinc-900 transition-all"></button>
+            <button onclick="changeColor('#38bdf8', 'آبی تیتانیوم')" class="w-5 h-5 rounded-full bg-sky-400 hover:scale-110 transition-all"></button>
+            <button onclick="changeColor('#e4e4e7', 'نقره‌ای مات')" class="w-5 h-5 rounded-full bg-zinc-200 hover:scale-110 transition-all"></button>
+          </div>
+          <span id="selectedColorLabel" class="text-[11px] text-zinc-400 font-medium mt-2">رنگ فعال: طلایی کهربایی</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 2. CATEGORY RAIL -->
+  <section id="categories" class="max-w-7xl mx-auto px-6 py-6 relative z-10 border-y border-white/[0.06]">
+    <div class="flex items-center justify-between gap-4 overflow-x-auto pb-2 scrollbar-none">
+      <div class="flex items-center gap-2">
+        <button onclick="filterCategory('all', this)" class="cat-pill px-4 py-2 rounded-xl bg-amber-500 text-zinc-950 text-xs font-bold whitespace-nowrap transition-all">همه محصولات (۷۴)</button>
+        <button onclick="filterCategory('headphones', this)" class="cat-pill px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-medium whitespace-nowrap transition-all">هدفون‌های مانیتورینگ</button>
+        <button onclick="filterCategory('speakers', this)" class="cat-pill px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-medium whitespace-nowrap transition-all">اسپیکرهای دسکتاپ</button>
+        <button onclick="filterCategory('dacs', this)" class="cat-pill px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-medium whitespace-nowrap transition-all">کارت صدا و DAC</button>
+        <button onclick="filterCategory('cables', this)" class="cat-pill px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-medium whitespace-nowrap transition-all">کابل‌های نقره بالانس</button>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-2 text-xs text-zinc-400">
+        <span>مرتب‌سازی:</span>
+        <select class="bg-zinc-900 border border-white/10 rounded-lg px-2.5 py-1 text-zinc-200 text-xs outline-none">
+          <option>پرفروش‌ترین‌ها</option>
+          <option>جدیدترین‌ها</option>
+          <option>گران‌ترین به ارزان‌ترین</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. CURATED BENTO COLLECTION GRID -->
+  <section class="max-w-7xl mx-auto px-6 py-14 relative z-10">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">منتخب کالکشن حرفه‌ای</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-1">تجهیزاتی که استانداردهای جهانی ضبط و مسترینگ را پاس کرده‌اند.</p>
+      </div>
+      <a href="#all" class="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1">
+        مشاهده تمام ۷۴ محصول
+        <span>←</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Product Card 1 -->
+      <div class="rounded-2xl bg-[#121216] card-border card-hover p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-md bg-white/5 text-[11px] font-mono text-zinc-400 border border-white/5">Planar Magnetic</span>
+            <span class="text-xs text-amber-400 font-mono font-bold">★ ۴.۹ (۱۲۴ نظر)</span>
+          </div>
+
+          <div class="h-44 rounded-xl bg-gradient-to-b from-white/[0.03] to-transparent flex items-center justify-center p-4 my-2 relative">
+            <div class="w-28 h-28 rounded-full border-2 border-dashed border-amber-500/30 flex items-center justify-center">
+              <span class="text-3xl font-black text-amber-400 font-mono">X90</span>
+            </div>
+            <span class="absolute bottom-2 right-2 text-[10px] text-zinc-500 font-mono">دیافراگم ۶۰ م.م</span>
+          </div>
+
+          <h3 class="text-base font-bold text-white mt-4">هدفون پشت‌باز Audeo Horizon X90</h3>
+          <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">استیج صدای فوق باز با تفکیک فرکانسی استودیویی و امپدانس ۳۲ اهم بدون نیاز به آمپ اختصاصی.</p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/[0.05] flex items-center justify-between">
+          <div>
+            <span class="text-xs text-zinc-500 block">قیمت ویژه:</span>
+            <span class="text-lg font-black font-mono text-white">۲۱,۲۰۰,۰۰۰ <span class="text-xs font-normal text-zinc-400">تومان</span></span>
+          </div>
+          <button onclick="addToCart('Audeo Horizon X90', '۲۱,۲۰۰,۰۰۰')" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-amber-500 hover:text-zinc-950 text-white text-xs font-semibold active:scale-95 transition-all">
+            افزودن به سبد
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="rounded-2xl bg-[#121216] card-border card-hover p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-[11px] font-mono text-emerald-400 border border-emerald-500/20">Active Bi-Amp</span>
+            <span class="text-xs text-amber-400 font-mono font-bold">★ ۴.۸ (۸۹ نظر)</span>
+          </div>
+
+          <div class="h-44 rounded-xl bg-gradient-to-b from-white/[0.03] to-transparent flex items-center justify-center p-4 my-2 relative">
+            <div class="w-24 h-32 rounded-lg bg-zinc-900 border border-zinc-700 flex flex-col items-center justify-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-zinc-800 border border-amber-500/40"></div>
+              <div class="w-14 h-14 rounded-full bg-zinc-800 border border-zinc-600"></div>
+            </div>
+            <span class="absolute bottom-2 right-2 text-[10px] text-zinc-500 font-mono">ووفر ۵ اینچ کولار</span>
+          </div>
+
+          <h3 class="text-base font-bold text-white mt-4">اسپیکر مانیتورینگ Veloce Core 5 Active</h3>
+          <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">پاسخ فرکانسی خطی و تخت از ۴۲ هرتز تا ۳۰ کیلوهرتز؛ ایده‌آل برای اتاق‌های میکس و تولید موسیقی.</p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/[0.05] flex items-center justify-between">
+          <div>
+            <span class="text-xs text-zinc-500 block">قیمت جفت:</span>
+            <span class="text-lg font-black font-mono text-white">۳۴,۵۰۰,۰۰۰ <span class="text-xs font-normal text-zinc-400">تومان</span></span>
+          </div>
+          <button onclick="addToCart('Veloce Core 5 Active', '۳۴,۵۰۰,۰۰۰')" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-amber-500 hover:text-zinc-950 text-white text-xs font-semibold active:scale-95 transition-all">
+            افزودن به سبد
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="rounded-2xl bg-[#121216] card-border card-hover p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="px-2.5 py-1 rounded-md bg-violet-500/10 text-[11px] font-mono text-violet-400 border border-violet-500/20">DSD512 / MQA</span>
+            <span class="text-xs text-amber-400 font-mono font-bold">★ ۵.۰ (۴۳ نظر)</span>
+          </div>
+
+          <div class="h-44 rounded-xl bg-gradient-to-b from-white/[0.03] to-transparent flex items-center justify-center p-4 my-2 relative">
+            <div class="w-36 h-20 rounded-xl bg-zinc-900 border border-zinc-700 flex items-center justify-between px-4">
+              <div class="w-4 h-4 rounded-full bg-cyan-400/80 shadow-md"></div>
+              <span class="font-mono text-xs text-zinc-300">768kHz</span>
+              <div class="w-6 h-6 rounded-full bg-zinc-800 border border-zinc-600"></div>
+            </div>
+            <span class="absolute bottom-2 right-2 text-[10px] text-zinc-500 font-mono">خروجی 4.4mm بالانس</span>
+          </div>
+
+          <h3 class="text-base font-bold text-white mt-4">دک و آمپلی‌فایر رومیزی Aurex D-70 Pro</h3>
+          <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">چیپست دوگانه ESS Sabre ES9038PRO با نسبت سیگنال به نویز منفی ۱۲۸ دسی‌بل و قدرت درایو بالا.</p>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-white/[0.05] flex items-center justify-between">
+          <div>
+            <span class="text-xs text-zinc-500 block">قیمت محصول:</span>
+            <span class="text-lg font-black font-mono text-white">۱۸,۹۰۰,۰۰۰ <span class="text-xs font-normal text-zinc-400">تومان</span></span>
+          </div>
+          <button onclick="addToCart('Aurex D-70 Pro', '۱۸,۹۰۰,۰۰۰')" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-amber-500 hover:text-zinc-950 text-white text-xs font-semibold active:scale-95 transition-all">
+            افزودن به سبد
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. INTERACTIVE SOUND DEMO / A-B LISTENING LAB (تست آنلاین صدا) -->
+  <section id="sound-demo" class="max-w-7xl mx-auto px-6 py-12 relative z-10">
+    <div class="rounded-3xl bg-gradient-to-br from-[#14141a] via-[#101014] to-[#0d0d12] card-border p-8 lg:p-12 border-amber-500/20">
+      <div class="max-w-3xl mx-auto text-center space-y-4">
+        <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+          آزمایشگاه اکوستیک آنلاین
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-black text-white">تفاوت کیفیت را همین الان بشنوید</h2>
+        <p class="text-zinc-400 text-sm">
+          بین خروجی فشرده MP3 معمولی و کیفیت استودیویی Hi-Res Lossless 24-bit سوییچ کنید تا تفکیک سازها و پاسخ بیس را مستقیماً احساس کنید.
+        </p>
+
+        <!-- A/B Toggle Switch -->
+        <div class="pt-4 flex items-center justify-center gap-3">
+          <button id="btnMp3" onclick="setAudioQuality('mp3')" class="px-5 py-2.5 rounded-xl bg-zinc-800 text-zinc-400 text-xs font-mono font-medium hover:text-white transition-all">
+            MP3 استاندارد (128 kbps)
+          </button>
+          <button id="btnLossless" onclick="setAudioQuality('lossless')" class="px-5 py-2.5 rounded-xl bg-amber-500 text-zinc-950 text-xs font-mono font-bold shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-zinc-950 animate-ping"></span>
+            استودیو Hi-Res Lossless (192 kHz)
+          </button>
+        </div>
+
+        <!-- Dynamic EQ Spectrum Animation -->
+        <div id="eqVisualizer" class="eq-active h-24 bg-black/50 rounded-2xl p-4 flex items-end justify-center gap-1.5 border border-white/5 mt-6">
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[40%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[75%]"></div>
+          <div class="eq-bar w-2 bg-amber-400 rounded-t h-[95%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[60%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[85%]"></div>
+          <div class="eq-bar w-2 bg-amber-400 rounded-t h-[100%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[50%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[90%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[70%]"></div>
+          <div class="eq-bar w-2 bg-amber-400 rounded-t h-[80%]"></div>
+          <div class="eq-bar w-2 bg-amber-500/80 rounded-t h-[45%]"></div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-zinc-500 font-mono pt-2">
+          <span>دامنه فرکانسی ساب‌بیس (20Hz)</span>
+          <span id="qualityStatus" class="text-amber-400 font-bold">پاسخ فرکانسی کامل و تفکیک ترنزینت‌های دقیق فعال است</span>
+          <span>های‌فرکانس ایر (48kHz)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. HEAD-TO-HEAD SPECIFICATION COMPARISON MATRIX (مقایسه مدل‌ها) -->
+  <section id="comparison" class="max-w-7xl mx-auto px-6 py-12 relative z-10">
+    <div class="mb-8">
+      <h2 class="text-2xl sm:text-3xl font-black text-white">مقایسه رودرروی پرچمداران</h2>
+      <p class="text-xs sm:text-sm text-zinc-400 mt-1">کدام مدل برای سبک شنیداری یا تولید موسیقی شما مناسب‌تر است؟</p>
+    </div>
+
+    <div class="overflow-x-auto rounded-2xl border border-white/[0.08] bg-[#111115]">
+      <table class="w-full text-right text-xs">
+        <thead>
+          <tr class="text-zinc-400 border-b border-white/[0.08] bg-white/[0.02]">
+            <th class="p-4 font-bold text-white">مشخصه فنی</th>
+            <th class="p-4 font-bold text-amber-400">Veloce Pro Master X (پیشنهادی)</th>
+            <th class="p-4 font-bold text-zinc-200">Audeo Horizon X90</th>
+            <th class="p-4 font-bold text-zinc-200">Veloce Core 5 Active</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-white/[0.04]">
+          <tr>
+            <td class="p-4 text-zinc-400 font-medium">نوع آکوستیک</td>
+            <td class="p-4 text-white font-semibold">پشت‌بسته ایزوله استودیویی</td>
+            <td class="p-4 text-zinc-300">پشت‌باز Planar Magnetic</td>
+            <td class="p-4 text-zinc-300">اسپیکر مانیتورینگ ۲ طرفه</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-zinc-400 font-medium">درایور صوتی</td>
+            <td class="p-4 text-white font-semibold font-mono">50mm Titanium Dynamic</td>
+            <td class="p-4 text-zinc-300 font-mono">60mm Ultra-thin Planar</td>
+            <td class="p-4 text-zinc-300 font-mono">5" Kevlar Woofer + 1" Silk</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-zinc-400 font-medium">پاسخ فرکانسی</td>
+            <td class="p-4 text-white font-semibold font-mono">5Hz – 48,000Hz</td>
+            <td class="p-4 text-zinc-300 font-mono">8Hz – 52,000Hz</td>
+            <td class="p-4 text-zinc-300 font-mono">42Hz – 30,000Hz</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-zinc-400 font-medium">امپدانس و درایور</td>
+            <td class="p-4 text-white font-semibold">۳۲ اهم (راحت با موبایل و DAC)</td>
+            <td class="p-4 text-zinc-300">۳۵ اهم (بهتر با آمپلی‌فایر)</td>
+            <td class="p-4 text-zinc-300">اکتیو آمپلی داخلی Class-D</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-zinc-400 font-medium">بهترین کاربری</td>
+            <td class="p-4 text-amber-400 font-bold">ضبط وکال، مانیتورینگ و مسافرت</td>
+            <td class="p-4 text-zinc-300">میکس نهایی، مسترینگ، ارکسترال</td>
+            <td class="p-4 text-zinc-300">پخش استودیو هوم و دسکتاپ</td>
+          </tr>
+          <tr>
+            <td class="p-4 text-zinc-400 font-medium">قیمت</td>
+            <td class="p-4 text-white font-bold font-mono">۱۴,۸۰۰,۰۰۰ تومان</td>
+            <td class="p-4 text-zinc-300 font-mono">۲۱,۲۰۰,۰۰۰ تومان</td>
+            <td class="p-4 text-zinc-300 font-mono">۳۴,۵۰۰,۰۰۰ تومان</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. COMPLETE STUDIO BUNDLE BUILDER (باندل با تخفیف ویژه) -->
+  <section id="bundle" class="max-w-7xl mx-auto px-6 py-12 relative z-10">
+    <div class="rounded-3xl bg-gradient-to-r from-amber-500/10 via-[#141418] to-violet-500/10 card-border p-8 lg:p-10">
+      <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-3">
+          <span class="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">پیشنهاد هوشمند ولوچه</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white">باندل مسترینگ کامل استودیو (با ۱۵٪ تخفیف پک)</h2>
+          <p class="text-zinc-400 text-xs sm:text-sm max-w-xl">
+            تمام لوازم مورد نیاز برای رسیدن به نهایت کیفیت: هدفون پرچمدار، پایه آلومینیومی ماشین‌کاری CNC، کابل بالانس نقره و هاردکیس ضدضربه مسافرتی.
+          </p>
+
+          <!-- Interactive Bundle Checkboxes -->
+          <div class="pt-2 space-y-2 text-xs">
+            <label class="flex items-center gap-3 text-zinc-200 cursor-pointer">
+              <input type="checkbox" checked disabled class="accent-amber-500 w-4 h-4 rounded">
+              <span>هدفون Veloce Pro Master X (قیمت پایه: ۱۴,۸۰۰,۰۰۰ تومان)</span>
+            </label>
+            <label class="flex items-center gap-3 text-zinc-200 cursor-pointer">
+              <input type="checkbox" id="chkStand" checked onchange="calcBundle()" class="accent-amber-500 w-4 h-4 rounded">
+              <span>پایه هدفون آلومینیوم مات CNC Veloce Stand (+ ۱,۲۰۰,۰۰۰ تومان)</span>
+            </label>
+            <label class="flex items-center gap-3 text-zinc-200 cursor-pointer">
+              <input type="checkbox" id="chkCable" checked onchange="calcBundle()" class="accent-amber-500 w-4 h-4 rounded">
+              <span>کابل نقره 4.4mm Balanced دست‌ساز (+ ۱,۵۰۰,۰۰۰ تومان)</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Pricing Card of Bundle -->
+        <div class="w-full lg:w-80 p-6 rounded-2xl bg-black/60 border border-white/10 text-center space-y-4 shrink-0">
+          <div>
+            <span class="text-xs text-zinc-400 block">مجموع قیمت باندل:</span>
+            <div class="flex items-baseline justify-center gap-2 mt-1">
+              <span id="bundlePrice" class="text-3xl font-black font-mono text-white">۱۴,۸۷۰,۰۰۰</span>
+              <span class="text-xs text-zinc-400">تومان</span>
+            </div>
+            <span id="bundleSavings" class="text-xs text-emerald-400 font-mono font-bold block mt-1">سود شما از این پک: ۲,۶۳۰,۰۰۰ تومان</span>
+          </div>
+
+          <button onclick="addToCart('باندل کامل استودیویی Master Pack', document.getElementById('bundlePrice').innerText)" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold text-xs shadow-lg shadow-amber-500/20 active:scale-95 transition-all">
+            خرید یکجای باندل استودیو
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. REVIEWS & COMMUNITY SOCIAL PROOF (نظرات مهندسان و تصاویر ستاپ‌ها) -->
+  <section id="reviews" class="max-w-7xl mx-auto px-6 py-12 relative z-10">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-black text-white">نظرات تولیدکنندگان و مهندسان صدا</h2>
+        <p class="text-xs sm:text-sm text-zinc-400 mt-1">کسانی که پروژه‌های موسیقی و فیلم‌های سینمایی را با تجهیزات ما مستر کرده‌اند.</p>
+      </div>
+      <div class="text-left font-mono text-xs text-amber-400">
+        میانگین رضایت: ۴.۹ از ۵ (بیش از ۱,۴۰۰ خریدار فعال)
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Review 1 -->
+      <div class="p-6 rounded-2xl bg-[#121216] card-border space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center font-bold text-amber-400 text-sm">
+            ن.ک
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">نیما کاظمی</h4>
+            <span class="text-[11px] text-zinc-400">آهنگساز و مهندس مسترینگ استودیو صبا</span>
+          </div>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          «تفکیک میدرنج در Pro Master X بی‌نظیره. تو میکس وکال خطاهایی رو نشون داد که مانیتورهای گران‌قیمت اسپیکری هم نشون نداده بودند. تا حالا چنین بالانسی ندیده بودم.»
+        </p>
+        <div class="text-amber-400 text-xs">★★★★★ • خریدار تایید شده</div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="p-6 rounded-2xl bg-[#121216] card-border space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-sky-500/20 border border-sky-500/30 flex items-center justify-center font-bold text-sky-400 text-sm">
+            س.ر
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">سهراب رضوانی</h4>
+            <span class="text-[11px] text-zinc-400">طراح صدای بازی و سینما</span>
+          </div>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          «ایزولاسیون پدهای چرم ارگانیک معرکه‌ست. در پروازهای طولانی و استودیوهای پر رفت‌وآمد صدایی جز جزئیات پروژه به گوش نمی‌رسه. گارانتی طلایی‌شون هم تست کردم و در ۲ ساعت تعویض شد.»
+        </p>
+        <div class="text-amber-400 text-xs">★★★★★ • خریدار تایید شده</div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="p-6 rounded-2xl bg-[#121216] card-border space-y-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-violet-500/20 border border-violet-500/30 flex items-center justify-center font-bold text-violet-400 text-sm">
+            ف.م
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-white">فرشید معتمد</h4>
+            <span class="text-[11px] text-zinc-400">آدیوفیل و کلکسیونر صدا</span>
+          </div>
+        </div>
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          «وقتی با کابل بالانس به Aurex D-70 وصلش می‌کنی، عمق بیس از ۲۰ هرتز کاملاً شسته‌ورفته و سه‌بعدیه بدون اینکه ذره‌ای روی فرکانس‌های صدای خواننده هوای اضافه بندازه.»
+        </p>
+        <div class="text-amber-400 text-xs">★★★★★ • خریدار تایید شده</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 8. INTERACTIVE FAQ ACCORDION (سوالات متداول خریداران) -->
+  <section id="faq" class="max-w-4xl mx-auto px-6 py-12 relative z-10">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-3xl font-black text-white">پرسش‌های پرتکرار خریداران</h2>
+      <p class="text-xs sm:text-sm text-zinc-400 mt-1">پاسخ به ابهامات فنی، گارانتی و نحوه ارسال قبل از خرید.</p>
+    </div>
+
+    <div class="space-y-3">
+      
+      <!-- FAQ Item 1 -->
+      <div class="rounded-2xl bg-[#121216] card-border p-5 cursor-pointer" onclick="toggleFaq(this)">
+        <div class="flex items-center justify-between font-bold text-sm text-white">
+          <span>آیا برای راه‌اندازی این هدفون نیاز به کارت صدا یا آمپلی‌فایر اختصاصی دارم؟</span>
+          <span class="faq-icon text-amber-400 text-base font-mono">+</span>
+        </div>
+        <div class="faq-answer hidden text-xs text-zinc-400 mt-3 pt-3 border-t border-white/[0.05] leading-relaxed">
+          خیر! به لطف امپدانس ۳۲ اهم و درایورهای پربازده تیتانیومی، هدفون Veloce Pro Master X مستقیماً با خروجی لپ‌تاپ، تبلت و موبایل هم به حجم صدای مناسب می‌رسد. هرچند با اتصال به یک DAC یا کارت صدای تخصصی، شفافیت صدا تا ۲۵٪ افزایش پیدا می‌کند.
+        </div>
+      </div>
+
+      <!-- FAQ Item 2 -->
+      <div class="rounded-2xl bg-[#121216] card-border p-5 cursor-pointer" onclick="toggleFaq(this)">
+        <div class="flex items-center justify-between font-bold text-sm text-white">
+          <span>شرایط مهلت تست ۷ روزه و گارانتی طلایی ۱۸ ماهه چیست؟</span>
+          <span class="faq-icon text-amber-400 text-base font-mono">+</span>
+        </div>
+        <div class="faq-answer hidden text-xs text-zinc-400 mt-3 pt-3 border-t border-white/[0.05] leading-relaxed">
+          شما از زمان تحویل کالا، ۷ روز کامل مهلت دارید محصول را در استودیو یا خانه با پروژه‌های خود تست کنید. در صورت هرگونه نارضایتی فنی از صدا یا خستگی ارگونومیک، کالا بدون قید و شرط پس گرفته شده و هزینه مسترد می‌شود. گارانتی ۱۸ ماهه نیز شامل تعویض آنی قطعات درایور و کابل است.
+        </div>
+      </div>
+
+      <!-- FAQ Item 3 -->
+      <div class="rounded-2xl bg-[#121216] card-border p-5 cursor-pointer" onclick="toggleFaq(this)">
+        <div class="flex items-center justify-between font-bold text-sm text-white">
+          <span>تفاوت مدل پشت‌باز (Horizon X90) و پشت‌بسته (Master X) در چیست؟</span>
+          <span class="faq-icon text-amber-400 text-base font-mono">+</span>
+        </div>
+        <div class="faq-answer hidden text-xs text-zinc-400 mt-3 pt-3 border-t border-white/[0.05] leading-relaxed">
+          مدل‌های پشت‌بسته مثل Master X صدای محیط را قطع می‌کنند و صدای شما به بیرون نشت نمی‌کند (مناسب ضبط وکال و پادکست). اما مدل‌های پشت‌باز صدایی شبیه اسپیکر در اتاق ایجاد می‌کنند و برای میکس و مسترینگ در اتاق‌های کاملاً ساکت مناسب هستند.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 9. COMPLETE STORE FOOTER -->
+  <footer id="warranty" class="border-t border-white/[0.08] bg-[#08080a] relative z-10 pt-14 pb-10 text-xs text-zinc-400">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-white/[0.06]">
+        
+        <!-- Col 1: Store Intro -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-amber-500 flex items-center justify-center font-bold text-zinc-950 text-sm">V</div>
+            <span class="text-sm font-bold text-white">ولوچه آدیو ایران</span>
+          </div>
+          <p class="text-xs leading-relaxed text-zinc-400">
+            نماینده انحصاری و مرجع تخصصی برترین برندهای تجهیزات صوتی های‌فای و مانیتورینگ استودیویی در ایران.
+          </p>
+          <div class="text-[11px] font-mono text-zinc-500">
+            تهران، خیابان جمهوری، پاساژ حافظ، طبقه ۲، واحد ۱۸
+          </div>
+        </div>
+
+        <!-- Col 2: Fast Links -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">راهنمای خرید</h4>
+          <div><a href="#comparison" class="hover:text-amber-400 transition-colors">مقایسه رودرروی مدل‌ها</a></div>
+          <div><a href="#sound-demo" class="hover:text-amber-400 transition-colors">تست آنلاین آکوستیک صدا</a></div>
+          <div><a href="#faq" class="hover:text-amber-400 transition-colors">شرایط گارانتی طلایی ۱۸ ماهه</a></div>
+          <div><a href="#bundle" class="hover:text-amber-400 transition-colors">باندل‌های استودیو با تخفیف</a></div>
+        </div>
+
+        <!-- Col 3: Customer Care -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">خدمات مشتریان</h4>
+          <div><a href="#" class="hover:text-amber-400 transition-colors">پیگیری سفارش با کد رهگیری</a></div>
+          <div><a href="#" class="hover:text-amber-400 transition-colors">مشاوره تخصصی با کارشناس صدا</a></div>
+          <div><a href="#faq" class="hover:text-amber-400 transition-colors">پرسش‌های متداول (FAQ)</a></div>
+          <div><a href="#" class="hover:text-amber-400 transition-colors">ثبت شکایت و انتقادات</a></div>
+        </div>
+
+        <!-- Col 4: Newsletter -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">باشگاه شنوندگان خاص</h4>
+          <p class="text-[11px] text-zinc-400">از تخفیف‌های محرمانه و دوره‌های تست تجهیزات باخبر شوید:</p>
+          <div class="flex items-center gap-1.5">
+            <input type="email" placeholder="ایمیل شما..." class="bg-zinc-900 border border-white/10 rounded-xl px-3 py-2 text-xs text-zinc-200 outline-none w-full placeholder:text-zinc-600 focus:border-amber-500/50">
+            <button onclick="showToast('ایمیل شما در خبرنامه VIP ثبت شد!')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold rounded-xl text-xs shrink-0 transition-colors">
+              عضویت
+            </button>
+          </div>
+          <span class="text-[10px] text-zinc-600 block">شماره تماس پشتیبانی: ۰۲۱-۶۶۷۰۲۲۰۰</span>
+        </div>
+
+      </div>
+
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-zinc-500">
+        <div>© ۲۰۲۶ ولوچه آدیو. تمامی حقوق مادی و معنوی محفوظ است.</div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="hover:text-zinc-300">قوانین و حریم خصوصی</a>
+          <a href="#" class="hover:text-zinc-300">مجوز افتا و نماد اعتماد</a>
+          <a href="#" class="hover:text-zinc-300">سنجش اصالت کالا</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Toast Notification -->
+  <div id="toast" class="fixed bottom-6 left-6 z-50 px-4 py-3 rounded-2xl bg-[#18181f]/95 border border-white/10 text-xs text-zinc-200 shadow-2xl backdrop-blur-xl flex items-center gap-3">
+    <div class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></div>
+    <span id="toastMsg" class="font-medium">پیام سیستم</span>
+  </div>
+
+  <!-- Interactive JavaScript Engine -->
+  <script>
+    let cartTotal = 2;
+
+    function addToCart(productName, price) {
+      cartTotal++;
+      document.getElementById('cartCount').innerText = cartTotal;
+      showToast(`«${productName}» به ارزش ${price} تومان به سبد اضافه شد.`);
+    }
+
+    function toggleCartDrawer() {
+      showToast(`سبد خرید شامل ${cartTotal} قلم کالا می‌باشد.`);
+    }
+
+    function changeColor(hex, label) {
+      document.getElementById('headphoneSvg').querySelector('path').setAttribute('stroke', hex);
+      document.getElementById('headphoneSvg').querySelectorAll('rect').forEach(r => r.setAttribute('stroke', hex));
+      document.getElementById('headphoneSvg').querySelectorAll('circle').forEach(c => c.setAttribute('fill', hex));
+      document.getElementById('productGlow').style.backgroundColor = hex + '25';
+      document.getElementById('selectedColorLabel').innerText = `رنگ فعال: ${label}`;
+      showToast(`رنگ محصول به ${label} تغییر یافت.`);
+    }
+
+    function filterCategory(cat, btn) {
+      document.querySelectorAll('.cat-pill').forEach(b => {
+        b.className = 'cat-pill px-4 py-2 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-medium whitespace-nowrap transition-all';
+      });
+      btn.className = 'cat-pill px-4 py-2 rounded-xl bg-amber-500 text-zinc-950 text-xs font-bold whitespace-nowrap transition-all';
+      showToast(`فیلتر دسته‌بندی روی «${btn.innerText}» اعمال شد.`);
+    }
+
+    function setAudioQuality(mode) {
+      const btnMp3 = document.getElementById('btnMp3');
+      const btnLossless = document.getElementById('btnLossless');
+      const status = document.getElementById('qualityStatus');
+      const eq = document.getElementById('eqVisualizer');
+
+      if (mode === 'mp3') {
+        btnMp3.className = 'px-5 py-2.5 rounded-xl bg-amber-500 text-zinc-950 text-xs font-mono font-bold shadow-lg shadow-amber-500/20 transition-all';
+        btnLossless.className = 'px-5 py-2.5 rounded-xl bg-zinc-800 text-zinc-400 text-xs font-mono font-medium hover:text-white transition-all';
+        status.innerText = 'صدای فشرده: کات فرکانس‌های بالای 16kHz و فشرده‌سازی داینامیک رنج فعال شد.';
+        status.className = 'text-zinc-400 font-bold';
+        eq.classList.remove('eq-active');
+        showToast('سوییچ به حالت MP3 فشرده (128kbps)');
+      } else {
+        btnLossless.className = 'px-5 py-2.5 rounded-xl bg-amber-500 text-zinc-950 text-xs font-mono font-bold shadow-lg shadow-amber-500/20 transition-all flex items-center gap-2';
+        btnMp3.className = 'px-5 py-2.5 rounded-xl bg-zinc-800 text-zinc-400 text-xs font-mono font-medium hover:text-white transition-all';
+        status.innerText = 'پاسخ فرکانسی کامل (192kHz Lossless) و تفکیک ترنزینت‌های دقیق فعال است.';
+        status.className = 'text-amber-400 font-bold';
+        eq.classList.add('eq-active');
+        showToast('سوییچ به کیفیت استودیویی Master 24-bit');
+      }
+    }
+
+    function calcBundle() {
+      let base = 14800000;
+      let stand = document.getElementById('chkStand').checked ? 1200000 : 0;
+      let cable = document.getElementById('chkCable').checked ? 1500000 : 0;
+      let totalRaw = base + stand + cable;
+      let discounted = Math.round(totalRaw * 0.85);
+      let savings = totalRaw - discounted;
+
+      document.getElementById('bundlePrice').innerText = discounted.toLocaleString('fa-IR');
+      document.getElementById('bundleSavings').innerText = `سود شما از این پک: ${savings.toLocaleString('fa-IR')} تومان`;
+    }
+
+    function toggleFaq(card) {
+      const answer = card.querySelector('.faq-answer');
+      const icon = card.querySelector('.faq-icon');
+      if (answer.classList.contains('hidden')) {
+        answer.classList.remove('hidden');
+        icon.innerText = '−';
+      } else {
+        answer.classList.add('hidden');
+        icon.innerText = '+';
+      }
+    }
+
+    let toastTimer;
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>

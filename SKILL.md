@@ -113,6 +113,7 @@ Every interface must look and feel like it was crafted by a principal designer:
 - **NO washed-out gray backgrounds** (`#f3f4f6`, `#f8fafc`) with flat gray borders.
 - **NO emoji used as UI icons.** Always use clean inline SVG icons (Lucide, Heroicons, Phosphor).
 - **NO default system fonts** for Persian (e.g. Tahoma/Arial). Always use modern typography (`Vazirmatn`, `IranSansX`).
+- **NO overloaded navbars or multi-line link wrapping.** Top navbars must contain 3-5 concise, high-level links maximum and MUST always use `whitespace-nowrap` so text never breaks awkwardly into two lines. Keep generous breathing room between logo and nav links.
 
 ### 2. Modern Layout Archetypes
 - **Bento Grid Layout:** Asymmetric cards with varied hierarchy.
