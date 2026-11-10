@@ -6,7 +6,7 @@ description: Guide project-specific UI/UX design, complete-page work, or redesig
 
 # UI Studio
 
-UI Studio designs, refines, and builds complete, production-grade, designer-quality user interfaces tailored to each project's purpose and audience. It eliminates generic "AI slop" and delivers modern, visually striking, and tactile designs.
+UI Studio designs, refines, and builds complete, production-grade, designer-quality user interfaces tailored to each project's purpose and audience. It eliminates generic "AI slop" and delivers rich, comprehensive multi-section experiences for any product domain.
 
 Use the user's language for questions, explanations, and code comments.
 
@@ -17,85 +17,117 @@ Use the user's language for questions, explanations, and code comments.
 Always determine the execution mode first to ensure fast, responsive turnaround:
 
 ### 1. Direct Implementation Mode (Default for code & UI tasks)
-- **When to use:** The user asks to build, modify, restyle, fix, or implement a specific page, screen, component, or layout (e.g., "این صفحه رو طراحی کن", "کامپوننت کارت‌ها رو بازطراحی کن").
+- **When to use:** The user asks to build, modify, restyle, fix, or implement a specific page, screen, component, or layout.
 - **Behavior:**
   - **Do NOT** conduct a lengthy multi-round interview.
   - **Do NOT** perform automatic web research or competitor scraping.
   - **Do NOT** generate separate documentation files (`project-analysis.md`, `design-spec.md`) unless requested.
-  - **Action:** Select an exceptional, modern design aesthetic (Linear dark, Vercel clean, Bento grid, or warm editorial) and immediately implement the code directly in the target files.
+  - **Action:** Select an exceptional, modern design aesthetic, map out the comprehensive domain-specific sections, and immediately implement the code directly in the target files.
 
 ### 2. Guided Design Studio Mode (Only when explicitly requested)
-- **When to use:** The user explicitly asks for end-to-end design consulting, style discovery, research, or architecture (e.g., "مراحل طراحی رو از صفر با من پیش ببر", "برام استایل‌های مختلف رو پیشنهاد بده").
+- **When to use:** The user explicitly asks for end-to-end design consulting, style discovery, research, or architecture.
 - **Behavior:** Follow the guided steps below in short, focused rounds (maximum 1-2 questions at a time).
+
+---
+
+## Comprehensive Page Architecture (The Completeness Engine)
+
+**NEVER summarize any page into 3 lazy sections!** A generic "Hero + 3 Cards + Footer" layout is an immediate failure. Real products across all industries require a full, rich journey (typically **6 to 8 purposeful sections**) to resolve doubts, establish trust, and drive action.
+
+Automatically detect the project domain and implement the corresponding full-depth architecture:
+
+### 1. E-Commerce & Storefronts
+1. **Announcement Bar & Smart Header:** Live cart badge counter, instant search, currency/locale.
+2. **Interactive Split Hero:** Product variants, live stock countdown pill, primary CTA with instant buy.
+3. **Interactive Category Rail / Dynamic Filters:** Tabbed switching with instant UI reaction.
+4. **Curated Product Bento Grid:** Flagship showcases, micro-specs (e.g. impedance, dimensions), customer star ratings.
+5. **Interactive Experience Demo:** Product visualizer, sound demo player, 360 preview, or fitment selector.
+6. **Head-to-Head Specification Matrix:** Side-by-side technical comparison table across models.
+7. **Bundle & Accessory Builder:** Add-on upsells with instant bundle discount calculator.
+8. **Social Proof & UGC Gallery:** Verified customer setups, ratings breakdown, and real feedback.
+9. **Interactive FAQ & Trust Footer:** Accordion for warranty/returns, guarantees, and multi-column footer.
+
+### 2. SaaS & B2B Web Applications
+1. **Hero with Interactive Product Preview:** Interactive dashboard widget or live demo component.
+2. **Social Proof / Customer Logo Wall:** Reputable company badges with subtle monochrome opacity.
+3. **3-Step Workflow / How It Works:** Step-by-step visual demonstration of the core user journey.
+4. **Deep-Dive Feature Bento Grid:** Asymmetric cards showing live micro-interactions and analytics.
+5. **Interactive Integrations Ecosystem:** Searchable or tabbed app integrations (Slack, GitHub, Figma, etc.).
+6. **Security, Compliance & Enterprise Trust:** SOC2, GDPR, HIPAA badges, uptime stats, and encryption standards.
+7. **Interactive Pricing Calculator / Matrix:** Monthly vs. Annual toggle (with % savings badge).
+8. **Customer Case Studies / ROI Metrics:** Hard numbers (+140% conversion, 12ms latency) with testimonial quotes.
+9. **Interactive FAQ Accordion & Final CTA Banner.**
+
+### 3. Developer Tools & Infrastructure (APIs, CLIs, Cloud)
+1. **Terminal Hero:** Copyable CLI install command (`npm i ...` or `curl ...`) with copy feedback.
+2. **Interactive Multi-Language Playground:** Tabbed code snippets (Node.js, Python, Go, Rust, cURL) with syntax styling.
+3. **Architecture & Pipeline Diagram:** Visual SVG/CSS dataflow showing input, processing, and output.
+4. **Benchmark & Latency Comparison:** Interactive bar chart comparing performance vs. traditional solutions.
+5. **Ecosystem & SDKs Grid:** Ready-to-use client libraries with status tags.
+6. **Changelog & Release Highlights:** Timeline of recent version upgrades and features.
+7. **Documentation Quickstart & Community / GitHub CTA.**
+
+### 4. Dashboards & Internal Analytics Platforms
+1. **Metric Overview Bar (KPIs):** Real-time counters, sparkline trends, and status indicators.
+2. **Primary Analytics Visualization:** Interactive time-series chart with range selector (24h, 7d, 30d).
+3. **Bento Status Cards:** Health checks, memory/CPU usage, error rates, and cache hit ratios.
+4. **Responsive High-Density Data Table:** Sticky header, sorting, status badges, and mobile-card transformation.
+5. **Recent Activity / Audit Log:** Timeline of recent user actions and system events.
+6. **Quick Action Flyout / Modal:** Shortcuts for deployment, user invites, or data export.
+
+### 5. Corporate, Creative Agency & Portfolios
+1. **Impact Hero:** Strong thesis statement, custom typography, and dynamic visual anchor.
+2. **Selected Case Studies (Bento Showcase):** Large visual cards with measurable client outcomes.
+3. **Core Services & Capabilities Matrix:** Detailed service breakdown with deliverables.
+4. **Methodology & Execution Process:** 4-phase delivery roadmap (Discover, Design, Build, Scale).
+5. **Leadership & Team Spotlight:** Real roles, bios, and social links.
+6. **Client Endorsements & Metric Testimonials:** High-trust quotes and verified results.
+7. **Interactive Project Inquiry / Budget Scope Form.**
+
+### 6. Healthcare, Clinics & Appointment Booking
+1. **Fast Booking Hero Bar:** Select specialist, department, date, and insurance provider.
+2. **Services & Medical Specialties Grid:** Clear symptoms/treatment taxonomy.
+3. **Doctor & Specialist Directory:** Qualifications, languages, ratings, and next available slot.
+4. **Patient Outcomes & Trust Reviews:** Verified patient experiences and recovery statistics.
+5. **Facilities & Virtual Clinic Tour:** High-res equipment and hygiene standards showcase.
+6. **Insurance Transparency & Cost Guide:** Covered plans, payment installments, and FAQs.
+7. **Emergency Contacts & Interactive Location Map.**
+
+### 7. EdTech, Academies & Online Courses
+1. **Hero with Live Enrollment Widget:** Syllabus preview, student count, and early-bird discount countdown.
+2. **Interactive Curriculum Roadmap:** Expandable module tree with lesson durations and projects.
+3. **Instructor Credentials & Industry Background:** Real-world experience and portfolio links.
+4. **Interactive Lesson Sample:** Playable audio/video preview snippet.
+5. **Student Projects & Graduation Showcase:** Real projects built by alumni with hiring outcomes.
+6. **Certification & Accreditation Badges:** Industry-recognized partner certificates.
+7. **Tuition Options, Money-Back Guarantee & FAQ.**
 
 ---
 
 ## Anti-AI-Slop: Visual Standards & Design Polish
 
-Generic AI templates (flat gray boxes, washed-out purple gradients, centered hero + 3 identical cards) are strictly forbidden. Every interface must feel like it was crafted by a top-tier product designer.
+Every interface must look and feel like it was crafted by a principal designer:
 
-### 1. Banned Cliches & Anti-Patterns
+### 1. Banned Cliches
 - **NO identical 3-column card rows** with icon-in-circle + title + paragraph.
 - **NO washed-out gray backgrounds** (`#f3f4f6`, `#f8fafc`) with flat gray borders.
-- **NO generic marketing headlines** without concrete product substance.
 - **NO emoji used as UI icons.** Always use clean inline SVG icons (Lucide, Heroicons, Phosphor).
 - **NO default system fonts** for Persian (e.g. Tahoma/Arial). Always use modern typography (`Vazirmatn`, `IranSansX`).
 
 ### 2. Modern Layout Archetypes
-Select an archetype that elevates the specific product:
-- **Bento Grid Layout:** Asymmetric cards with varied hierarchy (e.g., 2-column wide featured interactive preview, 1-column stat metric with live indicator, tall feature showcase, micro-widgets).
-- **Linear / Raycast Dark Aesthetic:**
-  - Deep rich dark background: `#09090b` (zinc-950) or `#0b0f19`, never pure `#000` or washed-out gray.
-  - Layered surfaces: `#121215` / `#18181b` with subtle borders (`border-white/10` or `border-zinc-800`).
-  - Subtle top/inner glow (`ring-1 ring-white/5` or radial highlight gradient behind key focal points).
-  - Pill badges: `px-3 py-1 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-zinc-300`.
-- **Stripe / Vercel Clean Light Aesthetic:**
-  - Crisp high-contrast white surfaces with razor-sharp borders (`border-zinc-200/80`).
-  - Layered elevation with soft diffuse shadows (`shadow-sm hover:shadow-md transition-shadow`).
-  - Refined typography with tight tracking on headings (`tracking-tight font-semibold`).
-- **Warm Editorial / Modern Luxury:**
-  - Warm cream/paper background (`#fcfbf7` or `#faf8f5`) with deep carbon/ink text (`#121212`).
-  - Expressive serif or modern geometric grotesk headings, generous whitespace, asymmetric column rhythm.
-- **High-Density Dashboard / Pro Tool:**
-  - Clean data tables, compact action bars, sticky filters, live status dots (`animate-pulse`), and keyboard-friendly controls.
+- **Bento Grid Layout:** Asymmetric cards with varied hierarchy.
+- **Linear / Raycast Dark Aesthetic:** `#09090b` (zinc-950) with layered `#121215` surfaces, `border-white/10`, and subtle radial glows.
+- **Stripe / Vercel Clean Light Aesthetic:** Crisp white with razor-sharp borders (`border-zinc-200/80`) and soft diffuse shadows.
+- **Warm Editorial / Modern Luxury:** Warm cream/paper background (`#fcfbf7`) with deep carbon/ink text (`#121212`) and expressive typography.
 
 ### 3. Typography & Persian (RTL) Excellence
-- **Persian Typography:**
-  - Always link and use modern Persian fonts (e.g. `https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap`).
-  - Line-height must be generous for Persian text: `line-height: 1.7` to `1.8` (`leading-relaxed` or `leading-loose`), with body text at minimum `15px` / `16px`.
-  - Heading font weight: 700 or 800 for high visual contrast with body copy.
-  - Numbers and dates: support Persian numerals (`font-feature-settings: 'ss01'`) where appropriate for localized apps.
-- **Hierarchy & Tracking:**
-  - Huge scale contrast: Display titles (36px–64px) with tight tracking vs micro-labels (11px–12px uppercase tracking-wider).
+- Always link modern Persian fonts (e.g. `Vazirmatn` via Google Fonts).
+- Generous line-height: `1.7` to `1.8` (`leading-relaxed`), body text at least `15px`/`16px`.
+- Heading weights: 700 to 900 for punchy contrast.
+- Proper RTL margin/padding and mirrorable direction icons.
 
 ### 4. Tactile Micro-Interactions & Depth
-- **Hover & Active States:** Every button, card, and interactive row must react to touch/mouse:
-  - Cards: `transition-all duration-200 ease-out hover:-translate-y-1 hover:border-zinc-700 hover:shadow-lg`
-  - Buttons: Smooth scale on press (`active:scale-[0.98] transition-transform`), high-contrast focus rings (`focus-visible:ring-2 focus-visible:ring-offset-2`).
-- **Complete States:** Always design empty states with helpful illustrations/actions, loading skeletons (`animate-pulse`), and contextual inline error messages.
-- **Contrast & Accessibility:** Guarantee WCAG AA (minimum 4.5:1 for normal text, 3:1 for large text). Never use low-contrast gray text on gray backgrounds.
-
----
-
-## Guided Studio Workflow (When Requested)
-
-When guided design is requested by the user, proceed in short, lightweight rounds:
-
-### Step 1: Brief & Direction (Short Round)
-- Clarify audience, main task, scope, and visual style preference (e.g., Linear Dark, Clean SaaS, Bento Editorial, Neo-Brutalism).
-- If the user has no preference, recommend 2-3 suitable modern directions with clear aesthetic personality.
-
-### Step 2: Imagery & Visual Assets
-- Determine media strategy: inline SVG graphics, interactive data visualizations, CSS patterns, or user-provided assets.
-- Do NOT trigger AI image generation tools unless explicitly requested.
-
-### Step 3: Reference & Competitor Research (Strictly On-Demand)
-- Only conduct web search if the user explicitly asks for external research (`"تحقیق کن"`, `"رقبا رو بررسی کن"`).
-
-### Step 4: Preview & Approval (If Requested)
-- Deliver an HTML preview or wireframe only when the user explicitly requests it.
-- If direct implementation was asked, apply directly to the codebase.
-
-### Step 5: Deliverables & Summary (On-Demand)
-- Deliver the working UI code directly to project files.
-- Summarize changes concisely in the user's language with clickable file links.
+- Hover animations on all interactive items (`transition-all duration-200 hover:-translate-y-1`).
+- Active button scales (`active:scale-[0.98]`).
+- Mobile table transformations (tables gracefully become stacked cards on small screens).
+- Dynamic toasts, filters, and tab state management.
