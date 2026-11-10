@@ -37,7 +37,7 @@ Always determine the execution mode first to ensure fast, responsive turnaround:
 Automatically detect the project domain and implement the corresponding full-depth architecture:
 
 ### 1. E-Commerce & Storefronts
-1. **Announcement Bar & Smart Header:** Live cart badge counter, instant search, currency/locale.
+1. **Announcement Bar & Smart Header:** Clean high-level nav (3-5 items with `whitespace-nowrap`), live cart badge counter, instant search.
 2. **Interactive Split Hero:** Product variants, live stock countdown pill, primary CTA with instant buy.
 3. **Interactive Category Rail / Dynamic Filters:** Tabbed switching with instant UI reaction.
 4. **Curated Product Bento Grid:** Flagship showcases, micro-specs (e.g. impedance, dimensions), customer star ratings.
@@ -104,31 +104,45 @@ Automatically detect the project domain and implement the corresponding full-dep
 
 ---
 
-## Anti-AI-Slop: Visual Standards & Design Polish
+## 4 Mandatory Pillars of Craft (Strict Quality Standards)
 
-Every interface must look and feel like it was crafted by a principal designer:
+Every interface generated or modified by this skill must strictly follow these 4 non-negotiable pillars:
 
-### 1. Banned Cliches
+### Pillar 1: Genuine Font Verification & Typography Excellence
+- **Verify Real Font Loading:** Never merely declare a font name in CSS without verifying it loads. Always include explicit `<link rel="preconnect">` and `<link href="...Vazirmatn..." rel="stylesheet">` tags (or local `@font-face` declarations).
+- **Enforce Body Font Inheritance:** Set `font-family: 'Vazirmatn', system-ui, sans-serif !important;` on `body` and input/button elements.
+- **Persian Text Legibility:**
+  - Mandatory line-height: `1.7` to `1.8` (`leading-relaxed` or `leading-loose`).
+  - Body text minimum `15px` / `16px`.
+  - Contrast weight: 700 to 900 for headings, 400/500 for body.
+  - Never allow silent fallback to system Tahoma, Arial, or Times New Roman.
+
+### Pillar 2: Custom-Styled Components (Zero Raw HTML Defaults!)
+Every interactive control must look completely bespoke and customized:
+- **Custom Select Dropdowns (`<select>`):**
+  - Strictly **NO raw native browser select bars**.
+  - Must use `appearance-none`, custom SVG chevron arrow, padded background, styled borders (`border-white/10`), and custom dark/light option styles.
+- **Custom Radio Buttons & Checkboxes:**
+  - Strictly **NO raw native browser radio/checkbox widgets**.
+  - Must use custom pill groups, segmented controls, or styled toggle cards with custom SVG checkmarks and smooth active states.
+- **Custom Inputs & Sliders:**
+  - Styled `<input>` and `<input type="range">` with custom thumb/track, subtle focus rings (`focus:ring-2 focus:ring-amber-500/30`), and no jarring blue outline.
+- **Component Arrangement & Rhythm:**
+  - Mathematical grid alignment, consistent 16px/24px gutters, no random margins or overlapping elements.
+
+### Pillar 3: Zero UI Slop & Cliché Banning
 - **NO identical 3-column card rows** with icon-in-circle + title + paragraph.
 - **NO washed-out gray backgrounds** (`#f3f4f6`, `#f8fafc`) with flat gray borders.
 - **NO emoji used as UI icons.** Always use clean inline SVG icons (Lucide, Heroicons, Phosphor).
-- **NO default system fonts** for Persian (e.g. Tahoma/Arial). Always use modern typography (`Vazirmatn`, `IranSansX`).
 - **NO overloaded navbars or multi-line link wrapping.** Top navbars must contain 3-5 concise, high-level links maximum and MUST always use `whitespace-nowrap` so text never breaks awkwardly into two lines. Keep generous breathing room between logo and nav links.
+- **NO placeholder or scaffold copy** ("TODO", "Coming soon", "لورم ایپسوم", fake dead buttons). Every visible button must perform an action or give a feedback toast.
 
-### 2. Modern Layout Archetypes
-- **Bento Grid Layout:** Asymmetric cards with varied hierarchy.
+### Pillar 4: Modern Trend Anchors (Current Design Intelligence)
+- **Bento Grid Layout:** Asymmetric cards with varied hierarchy (tall metric cards, wide feature previews).
 - **Linear / Raycast Dark Aesthetic:** `#09090b` (zinc-950) with layered `#121215` surfaces, `border-white/10`, and subtle radial glows.
 - **Stripe / Vercel Clean Light Aesthetic:** Crisp white with razor-sharp borders (`border-zinc-200/80`) and soft diffuse shadows.
-- **Warm Editorial / Modern Luxury:** Warm cream/paper background (`#fcfbf7`) with deep carbon/ink text (`#121212`) and expressive typography.
-
-### 3. Typography & Persian (RTL) Excellence
-- Always link modern Persian fonts (e.g. `Vazirmatn` via Google Fonts).
-- Generous line-height: `1.7` to `1.8` (`leading-relaxed`), body text at least `15px`/`16px`.
-- Heading weights: 700 to 900 for punchy contrast.
-- Proper RTL margin/padding and mirrorable direction icons.
-
-### 4. Tactile Micro-Interactions & Depth
-- Hover animations on all interactive items (`transition-all duration-200 hover:-translate-y-1`).
-- Active button scales (`active:scale-[0.98]`).
-- Mobile table transformations (tables gracefully become stacked cards on small screens).
-- Dynamic toasts, filters, and tab state management.
+- **Tactile Micro-Interactions & Depth:**
+  - Cards: `transition-all duration-200 ease-out hover:-translate-y-1 hover:border-zinc-700 hover:shadow-lg`
+  - Buttons: Smooth scale on press (`active:scale-[0.98] transition-transform`).
+  - Mobile table transformations: Tables gracefully become stacked mobile cards on small screens without horizontal scrolling.
+  - Dynamic toasts, filters, and tab state management.

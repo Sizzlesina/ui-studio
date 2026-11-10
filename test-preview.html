@@ -29,12 +29,29 @@
     }
   </script>
   <style>
+    html, body, button, input, select, textarea {
+      font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif !important;
+    }
     body {
       background-color: #0a0a0c;
       color: #f4f4f5;
-      font-family: 'Vazirmatn', system-ui, sans-serif;
       line-height: 1.75;
       -webkit-font-smoothing: antialiased;
+    }
+    /* Custom Modern Slim Dark Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0c;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27272a;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f3f46;
     }
     .ambient-mesh {
       position: fixed;
@@ -252,11 +269,18 @@
 
       <div class="hidden sm:flex items-center gap-2 text-xs text-zinc-400">
         <span>مرتب‌سازی:</span>
-        <select class="bg-zinc-900 border border-white/10 rounded-lg px-2.5 py-1 text-zinc-200 text-xs outline-none">
-          <option>پرفروش‌ترین‌ها</option>
-          <option>جدیدترین‌ها</option>
-          <option>گران‌ترین به ارزان‌ترین</option>
-        </select>
+        <div class="relative inline-block">
+          <select class="appearance-none bg-[#141419] border border-white/10 hover:border-amber-500/40 rounded-xl pr-3.5 pl-8 py-1.5 text-zinc-200 text-xs outline-none cursor-pointer focus:ring-2 focus:ring-amber-500/30 transition-all">
+            <option class="bg-[#141419] text-zinc-200">پرفروش‌ترین‌ها</option>
+            <option class="bg-[#141419] text-zinc-200">جدیدترین‌ها</option>
+            <option class="bg-[#141419] text-zinc-200">گران‌ترین به ارزان‌ترین</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2.5 text-zinc-400">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -489,19 +513,30 @@
             تمام لوازم مورد نیاز برای رسیدن به نهایت کیفیت: هدفون پرچمدار، پایه آلومینیومی ماشین‌کاری CNC، کابل بالانس نقره و هاردکیس ضدضربه مسافرتی.
           </p>
 
-          <!-- Interactive Bundle Checkboxes -->
-          <div class="pt-2 space-y-2 text-xs">
-            <label class="flex items-center gap-3 text-zinc-200 cursor-pointer">
-              <input type="checkbox" checked disabled class="accent-amber-500 w-4 h-4 rounded">
-              <span>هدفون Veloce Pro Master X (قیمت پایه: ۱۴,۸۰۰,۰۰۰ تومان)</span>
+          <!-- Custom Styled Bundle Selector (Zero Raw Checkboxes) -->
+          <div class="pt-2 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5 opacity-80">
+              <div class="flex items-center gap-3">
+                <span class="w-5 h-5 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">✓</span>
+                <span class="text-zinc-200">هدفون Veloce Pro Master X (محصول پایه)</span>
+              </div>
+              <span class="font-mono text-zinc-400">۱۴,۸۰۰,۰۰۰ تومان</span>
+            </div>
+
+            <label class="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-amber-500/30 cursor-pointer transition-all">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="chkStand" checked onchange="calcBundle()" class="w-4 h-4 rounded accent-amber-500 cursor-pointer">
+                <span class="text-zinc-200">پایه هدفون آلومینیوم مات CNC Veloce Stand</span>
+              </div>
+              <span class="font-mono text-amber-400/90 font-medium">+ ۱,۲۰۰,۰۰۰ تومان</span>
             </label>
-            <label class="flex items-center gap-3 text-zinc-200 cursor-pointer">
-              <input type="checkbox" id="chkStand" checked onchange="calcBundle()" class="accent-amber-500 w-4 h-4 rounded">
-              <span>پایه هدفون آلومینیوم مات CNC Veloce Stand (+ ۱,۲۰۰,۰۰۰ تومان)</span>
-            </label>
-            <label class="flex items-center gap-3 text-zinc-200 cursor-pointer">
-              <input type="checkbox" id="chkCable" checked onchange="calcBundle()" class="accent-amber-500 w-4 h-4 rounded">
-              <span>کابل نقره 4.4mm Balanced دست‌ساز (+ ۱,۵۰۰,۰۰۰ تومان)</span>
+
+            <label class="flex items-center justify-between p-3 rounded-xl bg-white/[0.02] border border-white/10 hover:border-amber-500/30 cursor-pointer transition-all">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="chkCable" checked onchange="calcBundle()" class="w-4 h-4 rounded accent-amber-500 cursor-pointer">
+                <span class="text-zinc-200">کابل نقره 4.4mm Balanced دست‌ساز</span>
+              </div>
+              <span class="font-mono text-amber-400/90 font-medium">+ ۱,۵۰۰,۰۰۰ تومان</span>
             </label>
           </div>
         </div>
