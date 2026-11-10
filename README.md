@@ -24,27 +24,36 @@ The CLI lets you choose supported agents. Node.js and npm are needed to run `npx
 
 ## Use
 
-In an agent that supports explicit skill mentions, invoke `$ui-studio`. Otherwise select UI Studio through that agent's skill interface or ask it to use the installed skill.
+In Antigravity or any supported agent, invoke `/ui-studio` as a slash command or prompt:
 
-Example requests:
+### Commands & Modes
 
-```text
-Use ui-studio to redesign our car-accessories storefront.
-Ask me about the project and design style first. I want to review
-the page structure and an HTML design-system preview before implementation.
-```
+- **Direct Build / Design:**
+  ```text
+  /ui-studio Design a modern developer platform homepage with Bento grid and dark theme.
+  ```
+- **In-Place Redesign Mode (`--redesign`):**
+  Pass `--redesign` with the target file to overhaul an existing screen in-place without losing business logic:
+  ```text
+  /ui-studio --redesign test-preview.html
+  ```
+  ```text
+  /ui-studio --redesign src/components/Dashboard.tsx
+  ```
+  This mode:
+  1. Preserves all working logic, state, and identity.
+  2. Eliminates raw browser controls (selects, radios, checkboxes).
+  3. Verifies genuine web font loading (`Vazirmatn`, etc.) with correct line-heights.
+  4. Expands lazy 2-3 section layouts into rich 6-8 section experiences using the **Completeness Engine**.
 
-Redesign an existing product:
+### 4 Mandatory Pillars of Craft
 
-```text
-Use ui-studio to redesign the current product experience. Audit the in-scope
-pages and main user journeys first; show the evidence-backed weaknesses and
-what you recommend keeping, improving, replacing, or adding. Preserve working
-flows and useful brand identity. Research relevant competitors and credible
-UX sources, complete every page and component in scope, and review the full
-result on desktop and mobile. Do not leave demo labels, placeholders, or dead
-controls in a finished concept.
-```
+1. **Font Guarantee & Real Verification:** Explicit `<link>` and CSS font enforcement; generous line-heights (1.7-1.8) for Persian/RTL.
+2. **Zero Raw HTML Defaults:** Styled custom select dropdowns, custom checkboxes/radios, and modern scrollbars.
+3. **Anti-AI-Slop:** Ban on identical 3-card grids, washed-out gray backgrounds, emojis as icons, and dead mock controls.
+4. **Contemporary Design Trends:** Bento grids, rich dark modes (Linear / Raycast `#09090b`), high-contrast typography, and tactile micro-interactions.
+
+---
 
 ```text
 Use ui-studio for a clinic appointment website. I have an existing logo

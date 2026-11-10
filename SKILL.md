@@ -1,7 +1,8 @@
 ---
 name: ui-studio
+argument-hint: "[--redesign | <topic>]"
 license: MIT
-description: Guide project-specific UI/UX design, complete-page work, or redesign of existing websites, storefronts, apps, and dashboards. Adapts flexibly to task scope: jumps directly to high-quality implementation for direct requests, or conducts a guided design workflow when requested. Ensures high craft, accessibility, responsiveness, and complete states without unnecessary token bloat or slow multi-step bottlenecks.
+description: Guide project-specific UI/UX design, complete-page work, or redesign of existing websites, storefronts, apps, and dashboards. Adapts flexibly to task scope: jumps directly to high-quality implementation for direct requests, supports dedicated in-place redesign via /ui-studio --redesign, or conducts a guided design workflow when requested. Ensures high craft, accessibility, responsiveness, and complete states without unnecessary token bloat or slow multi-step bottlenecks.
 ---
 
 # UI Studio
@@ -24,7 +25,18 @@ Always determine the execution mode first to ensure fast, responsive turnaround:
   - **Do NOT** generate separate documentation files (`project-analysis.md`, `design-spec.md`) unless requested.
   - **Action:** Select an exceptional, modern design aesthetic, map out the comprehensive domain-specific sections, and immediately implement the code directly in the target files.
 
-### 2. Guided Design Studio Mode (Only when explicitly requested)
+### 2. Redesign Mode (`/ui-studio --redesign [file | component]`)
+- **When to use:** The user invokes `/ui-studio --redesign` (or passes `--redesign` / asks to overhaul, modernize, or redesign an existing screen, component, or layout).
+- **Behavior:**
+  1. **Preserve Business Logic & Identity:** Inspect the active document or specified files. Never delete working handlers, API integrations, data structures, or valuable brand recognition.
+  2. **Eliminate Raw Defaults & AI-Slop:**
+     - Replace raw HTML `<select>`, `<input type="checkbox">`, and radio buttons with custom-styled, elegant components.
+     - Verify real web font loading (`Vazirmatn` or project font) and fix line-heights and text hierarchies.
+     - Eliminate generic 3-card rows and washed-out gray backgrounds in favor of modern aesthetics (Bento Grid, Linear Dark, or Vercel Clean).
+  3. **Expand Underfilled Sections:** If the existing page has only 2-3 superficial sections, apply the **Completeness Engine** to add the missing customer-journey sections (interactive demos, comparison tables, FAQs, social proof).
+  4. **Direct In-Place Execution:** Apply the redesign directly to the target file(s) and provide a concise summary with clickable links.
+
+### 3. Guided Design Studio Mode (Only when explicitly requested)
 - **When to use:** The user explicitly asks for end-to-end design consulting, style discovery, research, or architecture.
 - **Behavior:** Follow the guided steps below in short, focused rounds (maximum 1-2 questions at a time).
 
